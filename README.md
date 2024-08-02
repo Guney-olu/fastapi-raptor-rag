@@ -5,6 +5,17 @@ git clone https://github.com/Guney-olu/fastapi-raptor-rag.git
 python3 pip install -r requirements.txt
 ```
 
+**Download stuff**
+Classification model NEEDED
+```bash
+https://drive.google.com/file/d/1ep3RyEegw53X01SE1MAHx48-WzTsiY3A/view?usp=drive_link
+```
+GGUF LLM for rag chat
+```bash
+wget https://huggingface.co/TheBloke/Llama-2-7B-GGUF/resolve/main/llama-2-7b.Q2_K.gguf
+```
+
+
 **Go to main.py before and chain accordinly to your gguf model path and setting**
 ```bash
 cd fast-api-server
@@ -27,5 +38,11 @@ fast-api-server/adv-rag.py
 
 A classifier model trained using old school tensorflow on data https://www.kaggle.com/datasets/nikhileswarkomati/suicide-watch
 
-[text](fast-api-server/cls_training.py)
+[file](fast-api-server/cls_training.py)
 
+### Docker Build
+
+```bash
+docker build -t my-fastapi-app .
+docker run -d -p 8000:8000 my-fastapi-app
+```

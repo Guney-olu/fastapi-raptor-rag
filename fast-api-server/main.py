@@ -111,7 +111,7 @@ def rag_call(question):
 
 def llama_call(prompt,context):
     llm = Llama(
-      model_path="/kaggle/working/llama-2-7b-32k-instruct.Q2_K.gguf",#PATH TO THE GGUF MODEL
+      model_path="PATH TO GGUF MODEL",#PATH TO THE GGUF MODEL
       chat_format="llama-2",
       n_ctx=2048,
     )
@@ -147,7 +147,7 @@ def classification(prompt):
     padding_type='post'
     oov_tok = "<OOV>"
     tokenizer = Tokenizer(num_words=vocab_size, oov_token=oov_tok)
-    model_base = tf.keras.models.load_model('/kaggle/working/BasicLayers.keras')
+    model_base = tf.keras.models.load_model('PATH TO THE KERAS MODEL')
     twt = [prompt]
     twt = tokenizer.texts_to_sequences(twt)
     twt = pad_sequences(twt, maxlen=max_length, padding=padding_type, truncating=trunc_type)
