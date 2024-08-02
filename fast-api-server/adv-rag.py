@@ -1,11 +1,19 @@
-import PyPDF2
+from PyPDF2 import PdfReader
 from sentence_transformers import SentenceTransformer
 from pymilvus import MilvusClient
 import tqdm
 
+# Set up HTTPS context for SentenceTransformer
+import ssl
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context = _create_unverified_https_context
+
 model_st = SentenceTransformer('all-MiniLM-L6-v2')
 
-# Function to split text into n nearly equal parts
 def split_text(text, n):
     avg_len = len(text) // n
     splits = []
@@ -15,11 +23,10 @@ def split_text(text, n):
         splits.append(text[start_idx:end_idx])
     return splits
 
-# Function to load, split and add metadata to PDF
+# Function to load, split, and add metadata to PDF
 def process_pdf(file_path, link):
-    loader = (file_path)
-    pages = loader.load_and_split()
-    full_text = " ".join([page.page_content for page in pages])
+    reader = PdfReader(file_path)
+    full_text = " ".join([page.extract_text() for page in reader.pages])
     chunks = split_text(full_text, 3)
     docs_with_metadata = [[chunk, link] for chunk in chunks]
     return docs_with_metadata

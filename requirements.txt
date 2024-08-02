@@ -1,0 +1,11 @@
+PyPDF2
+sentence-transformers
+pymilvus
+tqdm
+numpy==1.26.4
+tensorflow
+scikit-learn
+fastapi
+rank-bm25
+llama-cpp-python
+uvicorn
